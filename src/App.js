@@ -1,12 +1,27 @@
-import React from "react";
+import React, {useState} from "react";
 
 function App() {
-    let likes = 5;
+    let [likes, setLikes] = useState(5)
+    let [value, setValue] = useState("Текст в инпуте")
+
+    function increment () {
+        setLikes(likes + 1)
+    }
+    function decrement () {
+        setLikes(likes - 1)
+    }
+
   return (
     <div className="App">
         <h1>{likes}</h1>
-      <button onClick={() => {likes +=1}}>Increment</button>
-      <button onClick={() => {likes -=1}}>Decrement</button>
+        <h2>{value}</h2>
+        <input
+            type={"text"}
+            value={value}
+            onChange={ event => setValue(event.target.value)}
+        />
+      <button onClick={increment}>Increment</button>
+      <button onClick={decrement}>Decrement</button>
     </div>
   );
 }
