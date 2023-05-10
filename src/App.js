@@ -1,6 +1,5 @@
 import React, {useState} from "react";
-import Counter from "./Component/Counter";
-import ClassCounter from "./Component/ClassCounter";
+import "./styles/app.css"
 
 function App() {
 
@@ -9,8 +8,17 @@ function App() {
 
   return (
     <div className="App">
-        <Counter/>
-        <ClassCounter/>
+        <div className={"post"}>
+            <div className="post__content">
+                <strong>1. Javascript</strong>
+                <div>
+                    Javascript - is programming language
+                </div>
+            </div>
+            <div className="post__btns">
+                <button>Delete</button>
+            </div>
+        </div>
     </div>
   );
 }
