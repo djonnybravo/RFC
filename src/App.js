@@ -25,7 +25,7 @@ function App() {
             title,
             body
         }
-        setPosts([newPost, ...posts])
+        setPosts([...posts, newPost])
     }
 
     return (
