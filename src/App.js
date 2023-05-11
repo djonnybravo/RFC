@@ -18,10 +18,10 @@ function App() {
     return (
         <div className="App">
             <form>
-                <input type={"text"} placeholder={'Название поста'}/>
-                <input type={"text"} placeholder={'Описание поста'}/>
+                <MyInput type={"text"} placeholder={'Название поста'}/>
+                <MyInput type={"text"} placeholder={'Описание поста'}/>
                 <MyButton>Создать пост</MyButton>
-                <MyInput/>
+
             </form>
             <PostList posts={posts} title={"Посты про JS"}/>
 
