@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import "./styles/app.css"
 import PostItem from "./Component/PostItem";
 import PostList from "./Component/PostList";
@@ -14,13 +14,36 @@ function App() {
         {id: 3, title: 'Javascript 3', body: 'Description'}
     ])
 
+    const [title, setTitle] = useState("")
+    const [body, setBody] = useState("")
+
+
+    const addNewPost = (e) => {
+        e.preventDefault()
+        const newPost = {
+            id: Date.now(),
+            title,
+            body
+        }
+        setPosts([newPost, ...posts])
+    }
 
     return (
         <div className="App">
             <form>
-                <MyInput type={"text"} placeholder={'Название поста'}/>
-                <MyInput type={"text"} placeholder={'Описание поста'}/>
-                <MyButton>Создать пост</MyButton>
+                <MyInput
+                    type={"text"}
+                    placeholder={'Название поста'}
+                    value={title}
+                    onChange={e => setTitle(e.target.value)}
+                />
+                <MyInput
+                    type={"text"}
+                    placeholder={'Описание поста'}
+                    value={body}
+                    onChange={e => setBody(e.target.value)}
+                />
+                <MyButton onClick={addNewPost}>Создать пост</MyButton>
 
             </form>
             <PostList posts={posts} title={"Посты про JS"}/>
