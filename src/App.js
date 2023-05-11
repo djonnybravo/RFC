@@ -1,26 +1,17 @@
 import React, {useState} from "react";
 import "./styles/app.css"
+import PostItem from "./Component/PostItem";
 
 function App() {
 
     let [value, setValue] = useState("Текст в инпуте")
 
 
-  return (
-    <div className="App">
-        <div className={"post"}>
-            <div className="post__content">
-                <strong>1. Javascript</strong>
-                <div>
-                    Javascript - is programming language
-                </div>
-            </div>
-            <div className="post__btns">
-                <button>Delete</button>
-            </div>
+    return (
+        <div className="App">
+            <PostItem />
         </div>
-    </div>
-  );
+    );
 }
 
 export default App;
