@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./styles/app.css"
 import PostItem from "./Component/PostItem";
+import PostList from "./Component/PostList";
 
 function App() {
 
@@ -13,10 +14,7 @@ function App() {
 
     return (
         <div className="App">
-            <h1 style={{textAlign: "center"}}>Список постов</h1>
-            {posts.map(post =>
-                <PostItem post={post} key={post.id}/>
-            )}
+            <PostList posts={posts}/>
         </div>
     );
 }
