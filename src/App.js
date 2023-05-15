@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import "./styles/app.css"
 import PostList from "./Component/PostList";
 import PostForm from "./Component/PostForm";
+import Select from "./Component/UI/Select/Select";
 
 function App() {
 
@@ -26,7 +27,10 @@ function App() {
     return (
         <div className="App">
             <PostForm create={createPost}/>
-
+            <hr style={{margin: '15px 0'}}/>
+            <div>
+                <Select/>
+            </div>
             {posts.length
             ? <PostList posts={posts} title={"Посты про JS"} remove={removePost}/>
             : <h1 style={{textAlign: "center"}}>Посты не найдены</h1>
