@@ -29,7 +29,13 @@ function App() {
             <PostForm create={createPost}/>
             <hr style={{margin: '15px 0'}}/>
             <div>
-                <Select/>
+                <Select
+                defaultValue="Сортировка по"
+                options={[
+                    {value: 'title', name: "По заголовку"},
+                    {value: 'body', name: "По описанию"},
+                ]}
+                />
             </div>
             {posts.length
             ? <PostList posts={posts} title={"Посты про JS"} remove={removePost}/>
