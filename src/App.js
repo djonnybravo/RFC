@@ -8,9 +8,9 @@ function App() {
 
 
     const [posts, setPosts] = useState([
-        {id: 1, title: 'Javascript', body: 'Description'},
-        {id: 2, title: 'Javascript 2', body: 'Description'},
-        {id: 3, title: 'Javascript 3', body: 'Description'}
+        {id: 1, title: 'A', body: 'A'},
+        {id: 2, title: 'B 2', body: 'B'},
+        {id: 3, title: 'C 3', body: 'C'}
     ])
     const [selectedSort, setSelectedSort] = useState('')
 
@@ -24,6 +24,11 @@ function App() {
         setPosts(posts.filter(p => p.id !== post.id))
     }
 
+    const sortPosts = (sort) => {
+        setSelectedSort(sort)
+        setPosts([...posts].sort( (a,b) => a[sort].localeCompare(b[sort])))
+
+    }
 
 
     return (
@@ -38,7 +43,7 @@ function App() {
                     {value: 'body', name: "По описанию"},
                 ]}
                 value={selectedSort}
-                onChange={sort => setSelectedSort(sort) }
+                onChange={sortPosts}
                 />
             </div>
             {posts.length
