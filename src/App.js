@@ -12,7 +12,7 @@ function App() {
         {id: 2, title: 'Javascript 2', body: 'Description'},
         {id: 3, title: 'Javascript 3', body: 'Description'}
     ])
-
+    const [selectedSort, setSelectedSort] = useState('')
 
 
 
@@ -23,6 +23,8 @@ function App() {
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
     }
+
+
 
     return (
         <div className="App">
@@ -35,6 +37,8 @@ function App() {
                     {value: 'title', name: "По заголовку"},
                     {value: 'body', name: "По описанию"},
                 ]}
+                value={selectedSort}
+                onChange={sort => setSelectedSort(sort) }
                 />
             </div>
             {posts.length
