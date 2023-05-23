@@ -63,7 +63,7 @@ function App() {
                     onChange={sortPosts}
                 />
             </div>
-            {posts.length
+            {sortedAndSearchedPosts.length
                 ? <PostList posts={sortedAndSearchedPosts} title={"Посты про JS"} remove={removePost}/>
                 : <h1 style={{textAlign: "center"}}>Посты не найдены</h1>
             }
