@@ -5,17 +5,19 @@ import PostForm from "./Component/PostForm";
 import Select from "./Component/UI/Select/Select";
 import MyInput from "./Component/UI/input/MyInput";
 import PostFIlter from "./Component/PostFIlter";
+import Modal from "./Component/UI/Modal/Modal";
+import MyButton from "./Component/UI/button/MyButton";
 
 function App() {
 
 
     const [posts, setPosts] = useState([
-        {id: 1, title: 'A', body: 'A'},
-        {id: 2, title: 'B 2', body: 'B'},
-        {id: 3, title: 'C 3', body: 'C'}
+        {id: 1, title: 'Первый пост', body: '1'},
+        {id: 2, title: 'Второй пост', body: '2'},
+        {id: 3, title: 'Третий пост', body: '3'}
     ])
     const [filter, setFilter] = useState({sort: '', searchQuery: ''})
-
+    const [modal, setModal] = useState(false)
 
 
     let sortedPosts = useMemo( () => {
@@ -32,6 +34,7 @@ function App() {
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
+        setModal(false)
     }
 
     const removePost = (post) => {
@@ -43,7 +46,16 @@ function App() {
 
     return (
         <div className="App">
-            <PostForm create={createPost}/>
+            <MyButton
+                style={{marginTop: "20px"}}
+                onClick={() => setModal(true)}
+            >
+                Добавить пост
+            </MyButton>
+            <Modal visible={modal} setVisible={setModal}>
+                <PostForm create={createPost}/>
+            </Modal>
+
             <hr style={{margin: '15px 0'}}/>
             <PostFIlter filter={filter} setFilter={setFilter}/>
             <PostList posts={sortedAndSearchedPosts} title={"Посты про JS"} remove={removePost}/>
