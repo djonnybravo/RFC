@@ -9,6 +9,7 @@ import Modal from "./Component/UI/Modal/Modal";
 import MyButton from "./Component/UI/button/MyButton";
 import {usePosts} from "./hooks/usePosts";
 import axios from "axios";
+import PostService from "./API/PostService";
 
 function App() {
 
@@ -29,8 +30,8 @@ function App() {
 
 
     async  function fetchPost () {
-        const response = await axios.get('https://jsonplaceholder.typicode.com/posts')
-        setPosts(response.data)
+       const posts = await PostService.getAll()
+       setPosts(posts)
     }
 
 
