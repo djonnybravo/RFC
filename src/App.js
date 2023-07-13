@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import "./styles/app.css"
 import PostList from "./Component/PostList";
 import PostForm from "./Component/PostForm";
@@ -12,6 +12,7 @@ import axios from "axios";
 
 function App() {
 
+    useEffect(() => {fetchPost()}, [])
 
     const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', searchQuery: ''})
@@ -37,7 +38,6 @@ function App() {
 
     return (
         <div className="App">
-            <MyButton onClick={() => fetchPost()}> GET POSTS</MyButton>
             <MyButton
                 style={{marginTop: "20px"}}
                 onClick={() => setModal(true)}
