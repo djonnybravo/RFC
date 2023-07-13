@@ -7,41 +7,23 @@ import MyInput from "./Component/UI/input/MyInput";
 import PostFIlter from "./Component/PostFIlter";
 import Modal from "./Component/UI/Modal/Modal";
 import MyButton from "./Component/UI/button/MyButton";
+import {usePosts} from "./hooks/usePosts";
 
 function App() {
 
 
-    const [posts, setPosts] = useState([
-        {id: 1, title: 'Первый пост', body: '1'},
-        {id: 2, title: 'Второй пост', body: '2'},
-        {id: 3, title: 'Третий пост', body: '3'}
-    ])
+    const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', searchQuery: ''})
     const [modal, setModal] = useState(false)
-
-
-    let sortedPosts = useMemo( () => {
-        console.log('SORTED POST IS WORKED')
-        if (filter.sort) {
-            return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
-        }
-        return posts
-    }, [filter.sort, posts])
-
-    const sortedAndSearchedPosts = useMemo( () => {
-        return sortedPosts.filter( post => post.title.toLowerCase().includes(filter.searchQuery.toLowerCase()))
-    }, [filter.searchQuery, sortedPosts])
+    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.searchQuery)
 
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
         setModal(false)
     }
-
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
     }
-
-
 
 
     return (
@@ -59,8 +41,6 @@ function App() {
             <hr style={{margin: '15px 0'}}/>
             <PostFIlter filter={filter} setFilter={setFilter}/>
             <PostList posts={sortedAndSearchedPosts} title={"Посты про JS"} remove={removePost}/>
-
-
 
 
         </div>
