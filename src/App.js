@@ -10,6 +10,7 @@ import MyButton from "./Component/UI/button/MyButton";
 import {usePosts} from "./hooks/usePosts";
 import axios from "axios";
 import PostService from "./API/PostService";
+import Loader from "./Component/UI/Loader/Loader";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
     const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', searchQuery: ''})
     const [modal, setModal] = useState(false)
+    const [isPostLoading, setIsPostLoading] = useState(false)
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.searchQuery)
 
     const createPost = (newPost) => {
@@ -30,8 +32,13 @@ function App() {
 
 
     async  function fetchPost () {
-       const posts = await PostService.getAll()
-       setPosts(posts)
+        setIsPostLoading(true)
+       setTimeout( async () =>  {
+           const posts = await PostService.getAll()
+           setPosts(posts)
+           setIsPostLoading(false)
+       }, 1000)
+
     }
 
 
@@ -51,7 +58,13 @@ function App() {
 
             <hr style={{margin: '15px 0'}}/>
             <PostFIlter filter={filter} setFilter={setFilter}/>
-            <PostList posts={sortedAndSearchedPosts} title={"Посты про JS"} remove={removePost}/>
+            {
+                isPostLoading
+                    ? <div style={{display: "flex", justifyContent: "center", marginTop: "50px" }}><Loader/></div>
+
+                    : <PostList posts={sortedAndSearchedPosts} title={"Посты про JS"} remove={removePost}/>
+
+            }
 
 
         </div>
