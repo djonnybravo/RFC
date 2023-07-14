@@ -2,15 +2,14 @@ import React, {useEffect, useMemo, useState} from "react";
 import "./styles/app.css"
 import PostList from "./Component/PostList";
 import PostForm from "./Component/PostForm";
-import Select from "./Component/UI/Select/Select";
-import MyInput from "./Component/UI/input/MyInput";
-import PostFIlter from "./Component/PostFIlter";
+import PostFilter from "./Component/PostFIlter";
 import Modal from "./Component/UI/Modal/Modal";
 import MyButton from "./Component/UI/button/MyButton";
 import {usePosts} from "./hooks/usePosts";
-import axios from "axios";
 import PostService from "./API/PostService";
 import Loader from "./Component/UI/Loader/Loader";
+import {useFetching} from "./hooks/useFetching";
+import {getPageCount} from "./utils/pages";
 
 function App() {
 
@@ -19,9 +18,18 @@ function App() {
     const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', searchQuery: ''})
     const [modal, setModal] = useState(false)
-    const [isPostLoading, setIsPostLoading] = useState(false)
-    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.searchQuery)
+    const [totalPages, setTotalPages] = useState(0)
+    const [limit, setLimit] = useState(10)
+    const [page, setPage] = useState(1)
 
+    const [fetchPost, isPostLoading, postError] = useFetching( async () => {
+        const response = await PostService.getAll(limit, page)
+        setPosts(response.data)
+        const totalCount = response.headers['x-total-count']
+        setTotalPages(getPageCount(totalCount, limit))
+    })
+
+    const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.searchQuery)
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
         setModal(false)
@@ -29,20 +37,6 @@ function App() {
     const removePost = (post) => {
         setPosts(posts.filter(p => p.id !== post.id))
     }
-
-
-    async  function fetchPost () {
-        setIsPostLoading(true)
-       setTimeout( async () =>  {
-           const posts = await PostService.getAll()
-           setPosts(posts)
-           setIsPostLoading(false)
-       }, 1000)
-
-    }
-
-
-
 
     return (
         <div className="App">
@@ -57,15 +51,16 @@ function App() {
             </Modal>
 
             <hr style={{margin: '15px 0'}}/>
-            <PostFIlter filter={filter} setFilter={setFilter}/>
+            <PostFilter filter={filter} setFilter={setFilter}/>
+            {
+                postError && <h1>Произошла ошибка ${postError}</h1>
+            }
             {
                 isPostLoading
                     ? <div style={{display: "flex", justifyContent: "center", marginTop: "50px" }}><Loader/></div>
-
                     : <PostList posts={sortedAndSearchedPosts} title={"Посты про JS"} remove={removePost}/>
 
             }
-
 
         </div>
     );
