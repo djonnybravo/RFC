@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import "./styles/app.css"
 import PostList from "./Component/PostList";
 import PostForm from "./Component/PostForm";
@@ -9,7 +9,7 @@ import {usePosts} from "./hooks/usePosts";
 import PostService from "./API/PostService";
 import Loader from "./Component/UI/Loader/Loader";
 import {useFetching} from "./hooks/useFetching";
-import {getPageCount} from "./utils/pages";
+import {getPageCount, getPagesArray} from "./utils/pages";
 
 function App() {
 
@@ -22,6 +22,8 @@ function App() {
     const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
 
+    let pagesArray = getPagesArray(totalPages)
+
     const [fetchPost, isPostLoading, postError] = useFetching( async () => {
         const response = await PostService.getAll(limit, page)
         setPosts(response.data)
@@ -30,6 +32,7 @@ function App() {
     })
 
     const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.searchQuery)
+
     const createPost = (newPost) => {
         setPosts([...posts, newPost])
         setModal(false)
@@ -61,6 +64,16 @@ function App() {
                     : <PostList posts={sortedAndSearchedPosts} title={"Посты про JS"} remove={removePost}/>
 
             }
+
+            <div className="page__wrapper">
+                {
+                    pagesArray.map(page =>
+                        <span className="page">{page}</span>
+                    )
+                }
+            </div>
+
+
 
         </div>
     );
