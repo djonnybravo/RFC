@@ -41,6 +41,11 @@ function App() {
         setPosts(posts.filter(p => p.id !== post.id))
     }
 
+    const changePage = (page) => {
+        setPage(page)
+        fetchPost(limit, page)
+    }
+
     return (
         <div className="App">
             <MyButton
@@ -67,8 +72,14 @@ function App() {
 
             <div className="page__wrapper">
                 {
-                    pagesArray.map(page =>
-                        <span className="page">{page}</span>
+                    pagesArray.map(p =>
+                        <span
+                            key={ p }
+                            className={page === p ? "page page__current" : "page"}
+                            onClick={ () => changePage(p)}
+                        >
+                            {p}
+                        </span>
                     )
                 }
             </div>
