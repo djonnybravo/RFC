@@ -13,7 +13,6 @@ import {getPageCount, getPagesArray} from "./utils/pages";
 
 function App() {
 
-    useEffect(() => {fetchPost()}, [])
 
     const [posts, setPosts] = useState([])
     const [filter, setFilter] = useState({sort: '', searchQuery: ''})
@@ -43,8 +42,11 @@ function App() {
 
     const changePage = (page) => {
         setPage(page)
-        fetchPost(limit, page)
+
     }
+
+    useEffect(() => {fetchPost()}, [page])
+
 
     return (
         <div className="App">
