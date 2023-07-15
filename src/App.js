@@ -10,6 +10,7 @@ import PostService from "./API/PostService";
 import Loader from "./Component/UI/Loader/Loader";
 import {useFetching} from "./hooks/useFetching";
 import {getPageCount, getPagesArray} from "./utils/pages";
+import Pagination from "./Component/UI/pagination/Pagination";
 
 function App() {
 
@@ -71,6 +72,7 @@ function App() {
 
             }
 
+            <Pagination changePage={changePage} page={page} totalPages={totalPages} />
 
 
 
