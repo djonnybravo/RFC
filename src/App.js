@@ -72,7 +72,11 @@ function App() {
 
             }
 
-            <Pagination changePage={changePage} page={page} totalPages={totalPages} />
+            <Pagination
+                changePage={changePage}
+                page={page}
+                totalPages={totalPages}
+            />
 
 
 
