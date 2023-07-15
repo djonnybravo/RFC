@@ -21,7 +21,6 @@ function App() {
     const [limit, setLimit] = useState(10)
     const [page, setPage] = useState(1)
 
-    let pagesArray = getPagesArray(totalPages)
 
     const [fetchPost, isPostLoading, postError] = useFetching( async () => {
         const response = await PostService.getAll(limit, page)
@@ -72,19 +71,7 @@ function App() {
 
             }
 
-            <div className="page__wrapper">
-                {
-                    pagesArray.map(p =>
-                        <span
-                            key={ p }
-                            className={page === p ? "page page__current" : "page"}
-                            onClick={ () => changePage(p)}
-                        >
-                            {p}
-                        </span>
-                    )
-                }
-            </div>
+
 
 
 
