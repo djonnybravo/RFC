@@ -1,11 +1,14 @@
 import React from 'react';
-import {BrowserRouter} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
+import About from "./pages/About";
+import Posts from "./pages/Posts";
 
 const App = () => {
     return (
-        <BrowserRouter>
-            
-        </BrowserRouter>
+        <Routes>
+            <Route path={'/about'} element={<About/>}/>
+            <Route path={'/posts'} element={<Posts/>}/>
+        </Routes>
     );
 };
 
