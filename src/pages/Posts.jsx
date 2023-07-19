@@ -1,4 +1,5 @@
 import React, {useEffect, useState} from "react";
+import '../styles/app.css'
 import {useFetching} from "../hooks/useFetching";
 import PostService from "../API/PostService";
 import MyButton from "../Component/UI/button/MyButton";
