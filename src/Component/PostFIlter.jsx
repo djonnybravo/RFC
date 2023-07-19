@@ -2,7 +2,7 @@ import React from 'react';
 import MyInput from "./UI/input/MyInput";
 import Select from "./UI/Select/Select";
 
-const PostFIlter = ({filter, setFilter}) => {
+const PostFilter = ({filter, setFilter}) => {
     return (
 
             <div>
@@ -25,4 +25,4 @@ const PostFIlter = ({filter, setFilter}) => {
     );
 };
 
-export default PostFIlter;
+export default PostFilter;
