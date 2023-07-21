@@ -73,5 +73,10 @@
 }
 
 .navbar__items {
-    margin-left: 5px ;
+    margin: 0 10px 0 ;
+
+}
+.navbar__items a {
+    text-decoration: none;
+    margin-left: 5px;
 }
