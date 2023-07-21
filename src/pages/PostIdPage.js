@@ -11,7 +11,6 @@ const PostIdPage = () => {
     const [post, setPost] = useState({})
     const [fetchPostById, isLoading, error ] = useFetching(async () => {
         const response =  await PostService.getById(params.id)
-        console.log(response.data)
         setPost(response.data)
     })
 
